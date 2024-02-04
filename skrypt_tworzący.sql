@@ -18,6 +18,7 @@ CREATE TABLE [entities] (
 )
 GO
 
+
 CREATE TABLE [equipment] (
   [entity_id] integer,
   [weapon_id] integer,
@@ -66,7 +67,7 @@ CREATE TABLE [pc] (
   [class] nvarchar(255) NOT NULL,
   [subclass] nvarchar(255) NOT NULL,
   [background] nvarchar(255) NOT NULL,
-  PRIMARY KEY ([entity_id], [pc_id])
+  PRIMARY KEY ([pc_id])
 )
 GO
 
@@ -98,10 +99,9 @@ CREATE TABLE [entity_proficiences] (
 GO
 
 CREATE TABLE [weapon_types] (
-  [proficiency_id] integer,
   [type_id] integer,
   [name] nvarchar(255) NOT NULL,
-  PRIMARY KEY ([proficiency_id], [type_id])
+  PRIMARY KEY ([type_id])
 )
 GO
 
@@ -109,6 +109,7 @@ CREATE TABLE [weapon] (
   [weapon_id] integer PRIMARY KEY,
   [type_id] integer NOT NULL,
   [name] integer NOT NULL,
+  [proficiency_id] integer,
   [damage] nvarchar(255) NOT NULL,
   [damage_type_id] integer NOT NULL,
   [stat] nvarchar(255) NOT NULL
@@ -148,12 +149,11 @@ CREATE TABLE [damage_types] (
   [name] nvarchar(255) UNIQUE NOT NULL
 )
 GO
-
 CREATE TABLE [entity_resistances_and_vulnerabilities] (
-  [demage_type_id] integer,
+  [damage_type_id] integer,
   [entity_id] integer,
   [type] nvarchar(255) NOT NULL,
-  PRIMARY KEY ([demage_type_id], [entity_id])
+  PRIMARY KEY ([damage_type_id], [entity_id])
 )
 GO
 
@@ -196,7 +196,7 @@ GO
 ALTER TABLE [entity_proficiences] ADD FOREIGN KEY ([proficiency_id]) REFERENCES [proficiences] ([proficiency_id])
 GO
 
-ALTER TABLE [weapon_types] ADD FOREIGN KEY ([proficiency_id]) REFERENCES [proficiences] ([proficiency_id])
+ALTER TABLE [weapon] ADD FOREIGN KEY ([proficiency_id]) REFERENCES [proficiences] ([proficiency_id])
 GO
 
 ALTER TABLE [weapon] ADD FOREIGN KEY ([type_id]) REFERENCES [weapon_types] ([type_id])
@@ -205,7 +205,7 @@ GO
 ALTER TABLE [weapon] ADD FOREIGN KEY ([damage_type_id]) REFERENCES [damage_types] ([damage_type_id])
 GO
 
-ALTER TABLE [entity_resistances_and_vulnerabilities] ADD FOREIGN KEY ([demage_type_id]) REFERENCES [damage_types] ([damage_type_id])
+ALTER TABLE [entity_resistances_and_vulnerabilities] ADD FOREIGN KEY ([damage_type_id]) REFERENCES [damage_types] ([damage_type_id])
 GO
 
 ALTER TABLE [entity_resistances_and_vulnerabilities] ADD FOREIGN KEY ([entity_id]) REFERENCES [entities] ([entity_id])
@@ -216,5 +216,3 @@ GO
 
 ALTER TABLE [equipment] ADD FOREIGN KEY ([weapon_id]) REFERENCES [weapon] ([weapon_id])
 GO
-
-
