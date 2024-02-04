@@ -35,7 +35,7 @@ GO
 CREATE TABLE [monsters] (
   [entity_id] integer PRIMARY KEY,
   [exp] integer NOT NULL,
-  [type] nvarchar(255) NOT NULL CHECK ([type] IN ('aberration', 'beast', 'celestial', 'construct', 'dragon', 'elemental', 'fey', 'fiend', 'giant', 'monstrolity', 'ooze', 'plant', 'undead')) NOT NULL
+  [type] nvarchar(255) NOT NULL CHECK ([type] IN ('aberration', 'beast', 'celestial', 'construct', 'dragon', 'elemental', 'fey', 'fiend', 'giant', 'monstrolity', 'ooze', 'plant', 'undead'))
 )
 GO
 
