@@ -1,8 +1,12 @@
 -- FUNKCJE DODAWANIA NOWYCH REKORDYCH DO BAZY DANYCH
 -- AAAAAAAAAAAAAAaaaaaaaaaaaaaaaaaaaaa
--- DODAJ FUNKCJE CO BEDZIĘ LICZYC CR NA PODSTAWIE EXPAAAAAAA
+-- DODAJ FUNKCJE CO BEDZIE LICZYC CR NA PODSTAWIE EXPAAAAAAA
 -- W MOMENCIE W KTORYM PODAJEMY TYP OBRAZEN NIECH SPRAWDZI PODATNOSC
--- POLICZ SPELL SAVE DC
+
+-- Function to count spell save DC
+
+
+
 
 -- Function to add a new entity
 CREATE PROCEDURE addEntity 
@@ -43,7 +47,7 @@ CREATE PROCEDURE addAlignment
     @y_axis nvarchar(255)
 AS
 BEGIN
-    INSERT INTO aligment VALUES (@aligment_id, @x_axis, @y_axis);
+    INSERT INTO alignment VALUES (@aligment_id, @x_axis, @y_axis);
 END;
 GO
 
@@ -124,7 +128,7 @@ CREATE PROCEDURE addWeapon
     @stat nvarchar(255)
 AS
 BEGIN
-    INSERT INTO weapons VALUES (@weapon_id, @type_id, @name, @proficiency_id, @damage, @damage_type_id, @stat);
+    INSERT INTO weapon VALUES (@weapon_id, @type_id, @name, @proficiency_id, @damage, @damage_type_id, @stat);
 END;
 GO
 
