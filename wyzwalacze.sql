@@ -82,3 +82,40 @@ BEGIN
 	WHERE entity_id IN (SELECT entity_id FROM inserted where current_hp > max_hp);
 END;
 GO;
+
+CREATE TRIGGER check_spellslots_after_update
+ON entity_spellslots
+AFTER UPDATE 
+AS
+BEGIN
+	UPDATE entities
+	SET current_number = max_number
+	WHERE entity_id IN (SELECT entity_id FROM INSERTED WHERE current_number > max_number)
+END;
+GO
+	
+CREATE TRIGGER check_spellslot_on_update
+ON entity_spellslots
+INSTEAD OF UPDATE
+AS 
+BEGIN
+	IF EXISTS (	
+		SELECT 1 
+		FROM INSERTED AS i
+		INNER JOIN entity_spellslots AS s ON i.entity_id = s.entity_id
+		WHERE i.current_number < 0
+	)
+	BEGIN 
+	ROLLBACK
+	END
+	ELSE
+	BEGIN
+		UPDATE s
+		SET 
+			current_number = i.current_number
+		FROM entity_spellslots AS S
+		INNER JOIN INSERTED AS i ON s.entity_id = i.entity_id
+	END
+END;
+GO
+	
