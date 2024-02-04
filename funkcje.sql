@@ -8,7 +8,7 @@
 CREATE PROCEDURE addEntity 
     @entity_id integer,
     @aligment_id integer,
-    @type creature_type,
+    @type nvarchar(255),
     @initiative_bonus integer,
     @size nvarchar(255),
     @name nvarchar(255),
@@ -135,7 +135,7 @@ CREATE PROCEDURE addSpell
     @damege_type_id integer,
     @casting_time integer,
     @range nvarchar(255),
-    @area bool,
+    @area bit,
     @duration integer
 AS
 BEGIN
