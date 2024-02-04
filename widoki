@@ -1,3 +1,76 @@
+CREATE FUNCTION calculateStatsBonus (@entity_id INT)
+RETURNS TABLE 
+AS 
+RETURN (
+	SELECT 
+		e.entity_id,
+		CASE
+			WHEN e.str < 10 THEN (e.str-11)/2
+			ELSE (e.str-10)/2
+		END AS str_bonus,
+		CASE 
+			WHEN e.dex < 10 THEN (e.dex-11)/2
+			ELSE (e.dex-10)/2
+		END AS dex_bonus,
+		CASE
+			WHEN e.con <  10 THEN (e.con-11)/2
+			ELSE (e.con-10)/2
+		END AS con_bonus,
+		CASE
+			WHEN e.int < 10 THEN (e.int-11)/2
+			ELSE (e.int-10)/2
+		END AS int_bonus,
+		CASE 
+			WHEN e.wis < 10 THEN (e.wis-11)/2
+			ELSE (e.wis-10)/2
+		END AS wis_bonus,
+		CASE
+			WHEN e.char <  10 THEN (e.char-11)/2
+			ELSE (e.char-10)/2
+		END AS char_bonus
+	FROM entities as e
+	WHERE e.entity_id = @entity_id
+);
+
+GO
+CREATE FUNCTION calculateProficiencyBonus (@entity_id INT)
+RETURNS INT
+AS 
+BEGIN
+	DECLARE @proficiency_bonus INT;
+	SELECT @proficiency_bonus = 
+		CASE 
+			WHEN e.type = 'pc' THEN
+				CASE 
+					WHEN e.exp < 6500 THEN 2
+					WHEN e.exp < 48000 THEN 3
+					WHEN e.exp < 120000 THEN 4
+					WHEN e.exp < 225000 THEN 5
+					ELSE 6
+				END
+			ELSE 
+				CASE 
+					WHEN e.exp < 1800 THEN 2
+					WHEN e.exp < 5000 THEN 3
+					WHEN e.exp < 10000 THEN 4
+					WHEN e.exp < 18000 THEN 5
+					WHEN e.exp < 33000 THEN 6
+					WHEN e.exp < 75000 THEN 7
+					WHEN e.exp < 135000 THEN 8
+					ELSE 9
+				END
+			END
+	FROM entities AS e
+	RETURN @proficiency_bonus;
+END;
+GO
+
+CREATE VIEW charactersStatsBonusesAndProfView
+AS 
+SELECT e.name, bonuses.*, dbo.calculateProficiencyBonus(e.entity_id) AS proficiency_bonus FROM entities AS e
+CROSS APPLY calculateStatsBonus(e.entity_id) AS bonuses;
+GO
+
 CREATE VIEW pcView 
 AS SELECT E.*, P.pc_id, P.class, P.subclass, P.background FROM entities AS E
 RIGHT JOIN pc AS P ON P.entity_id = E.entity_id;
