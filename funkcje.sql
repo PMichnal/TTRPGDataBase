@@ -49,10 +49,12 @@ GO
 
 -- Function to add a new monster
 CREATE PROCEDURE addMonster
-    @entity_id integer
+    @entity_id integer,
+	@exp integer,
+	@type nvarchar(255)
 AS
 BEGIN
-    INSERT INTO monsters VALUES (@entity_id);
+    INSERT INTO monsters VALUES (@entity_id, @exp, @type);
 END;
 GO
 
@@ -103,12 +105,11 @@ GO
 
 -- Function to add a new weapon type
 CREATE PROCEDURE addWeaponType
-    @proficiency_id integer,
     @type_id integer,
     @name nvarchar(255)
 AS
 BEGIN
-    INSERT INTO weapon_types VALUES (@proficiency_id, @type_id, @name);
+    INSERT INTO weapon_types VALUES (@type_id, @name);
 END;
 GO
 
@@ -117,12 +118,13 @@ CREATE PROCEDURE addWeapon
     @weapon_id integer,
     @type_id integer,
     @name integer,
+    @proficiency_id integer,
     @damage nvarchar(255),
     @damage_type_id integer,
     @stat nvarchar(255)
 AS
 BEGIN
-    INSERT INTO weapon VALUES (@weapon_id, @type_id, @name, @damage, @damage_type_id, @stat);
+    INSERT INTO weapons VALUES (@weapon_id, @type_id, @name, @proficiency_id, @damage, @damage_type_id, @stat);
 END;
 GO
 
