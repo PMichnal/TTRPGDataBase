@@ -3,7 +3,7 @@ CREATE DATABASE [dnd]
 CREATE TABLE [entities] (
   [entity_id] integer PRIMARY KEY,
   [aligment_id] integer NOT NULL,
-  [type] creature_type NOT NULL,
+  [type] nvarchar(255) NOT NULL,
   [initiative_bonus] integer NOT NULL,
   [size] nvarchar(255) NOT NULL,
   [name] nvarchar(255) NOT NULL,
@@ -27,8 +27,8 @@ GO
 
 CREATE TABLE [aligment] (
   [aligment_id] integer PRIMARY KEY,
-  [x_axis] nvarchar(255) NOT NULL CHECK ([x_axis] IN ('chaotic', 'neutral', 'lawful')) NOT NULL,
-  [y_axis] nvarchar(255) NOT NULL CHECK ([y_axis] IN ('good', 'neutral', 'evil')) NOT NULL
+  [x_axis] nvarchar(255) NOT NULL CHECK ([x_axis] IN ('chaotic', 'neutral', 'lawful')),
+  [y_axis] nvarchar(255) NOT NULL CHECK ([y_axis] IN ('good', 'neutral', 'evil'))
 )
 GO
 
@@ -49,7 +49,7 @@ GO
 CREATE TABLE [skills] (
   [skill_id] integer PRIMARY KEY,
   [name] nvarchar(255) UNIQUE NOT NULL,
-  [stat] nvarchar(255) NOT NULL CHECK ([stat] IN ('charisma', 'dexterity', 'constitution', 'inteligence', 'wisdom', 'strength')) NOT NULL
+  [stat] nvarchar(255) NOT NULL CHECK ([stat] IN ('charisma', 'dexterity', 'constitution', 'inteligence', 'wisdom', 'strength'))
 )
 GO
 
@@ -123,7 +123,7 @@ CREATE TABLE [spells] (
   [damege_type_id] integer NOT NULL,
   [casting_time] integer NOT NULL,
   [range] nvarchar(255) NOT NULL,
-  [area] bool NOT NULL,
+  [area] bit NOT NULL,    -- bit to odpowiednik boolean, nie ma w sql server dedykowanego typu dla zmiennej typu boolowskiego
   [duration] integer NOT NULL
 )
 GO
