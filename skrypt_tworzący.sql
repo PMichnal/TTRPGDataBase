@@ -3,7 +3,7 @@ CREATE DATABASE [dnd]
 CREATE TABLE [entities] (
   [entity_id] integer PRIMARY KEY,
   [aligment_id] integer NOT NULL,
-  [type] nvarchar(255) NOT NULL,
+  [type] nvarchar(255) NOT NULL CHECK ([type] IN ('pc', 'npc', 'monster')),
   [initiative_bonus] integer NOT NULL,
   [size] nvarchar(255) NOT NULL,
   [name] nvarchar(255) NOT NULL,
