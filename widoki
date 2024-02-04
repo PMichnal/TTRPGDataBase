@@ -1,0 +1,15 @@
+CREATE VIEW pcView 
+AS SELECT E.*, P.pc_id, P.class, P.subclass, P.background FROM entities AS E
+RIGHT JOIN pc AS P ON P.entity_id = E.entity_id;
+GO
+
+CREATE VIEW npcView AS
+SELECT E.*, N.exp, N.race FROM entities AS E
+RIGHT JOIN npc AS N ON N.entity_id = E.entity_id;
+GO
+
+CREATE VIEW monstersView AS
+SELECT E.*, M.exp, M.type AS [monster type] FROM entities AS E
+RIGHT JOIN monsters AS M ON M.entity_id = E.entity_id;
+GO
+
