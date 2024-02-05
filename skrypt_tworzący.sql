@@ -17,7 +17,8 @@ CREATE TABLE [entities] (
   [con] integer NOT NULL,
   [int] integer NOT NULL,
   [wis] integer NOT NULL,
-  [char] integer NOT NULL
+  [char] integer NOT NULL,
+  [casting_stat] nvarchar(255) NULL CHECK([type] IN ('strength', 'constitution', 'dexterity', 'intelligence', 'wisdom', 'charisma'))
 )
 GO
 
