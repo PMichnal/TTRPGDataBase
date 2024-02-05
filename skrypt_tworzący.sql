@@ -112,7 +112,7 @@ GO
 CREATE TABLE [weapon] (
 	[weapon_id] integer PRIMARY KEY,
 	[type_id] integer NOT NULL,
-	[name] integer NOT NULL,
+	[name] nvarchar(255) NOT NULL,
 	[proficiency_id] integer,
 	[damage] nvarchar(255) NOT NULL,
 	[damage_type_id] integer NOT NULL,
