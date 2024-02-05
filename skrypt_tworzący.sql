@@ -11,7 +11,7 @@ CREATE TABLE [entities] (
   [name] nvarchar(255) NOT NULL,
   [ac] integer NOT NULL,
   [max_hp] integer NOT NULL,
-  [current_hp] NOT NULL,
+  [current_hp] integer NOT NULL,
   [str] integer NOT NULL,
   [dex] integer NOT NULL,
   [con] integer NOT NULL,
