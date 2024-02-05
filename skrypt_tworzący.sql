@@ -18,7 +18,8 @@ CREATE TABLE [entities] (
   [int] integer NOT NULL,
   [wis] integer NOT NULL,
   [char] integer NOT NULL,
-  [casting_stat] nvarchar(255) NULL CHECK([casting_stat] IN ('strength', 'constitution', 'dexterity', 'intelligence', 'wisdom', 'charisma'))
+  [casting_stat] nvarchar(255) NULL CHECK([casting_stat] IN ('strength', 'constitution', 'dexterity', 'intelligence', 'wisdom', 'charisma')),
+  [dead] bit NOT NULL
 )
 GO
 
