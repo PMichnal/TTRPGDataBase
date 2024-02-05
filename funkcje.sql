@@ -23,10 +23,10 @@ CREATE PROCEDURE addEntity
     @con integer,
     @int integer,
     @wis integer,
-    @char integer
+    @char integer,
 AS
 BEGIN
-    INSERT INTO entities VALUES (@entity_id, @aligment_id, @type, @initiative_bonus, @size, @name, @ac, @hp, @str, @dex, @con, @int, @wis, @char);
+    INSERT INTO entities VALUES (@entity_id, @aligment_id, @type, @initiative_bonus, @size, @name, @ac, @hp, @str, @dex, @con, @int, @wis, @char, 0);
 END;
 GO
 
