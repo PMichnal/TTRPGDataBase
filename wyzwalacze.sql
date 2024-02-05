@@ -63,25 +63,21 @@ ON entities
 AFTER UPDATE
 AS
 BEGIN
-    IF (SELECT current_hp FROM inserted) <= 0
-    BEGIN
-        UPDATE entities
-        SET alive = 1
-        WHERE entity_id IN (SELECT entity_id FROM inserted);
-    END
+    UPDATE entities
+    SET 
+        alive = CASE 
+                    WHEN current_hp <= 0 THEN 1
+                    ELSE alive
+                END,
+        current_hp = CASE 
+                        WHEN current_hp > max_hp THEN max_hp
+                        ELSE current_hp
+                    END
+    FROM entities e
+    INNER JOIN inserted i ON e.entity_id = i.entity_id;
 END;
 GO;
 
-CREATE TRIGGER check_hp
-ON entities
-AFTER UPDATE
-AS
-BEGIN
-	UPDATE entities
-	SET current_hp = max_hp
-	WHERE entity_id IN (SELECT entity_id FROM inserted where current_hp > max_hp);
-END;
-GO;
 
 CREATE TRIGGER check_spellslots_after_update
 ON entity_spellslots
